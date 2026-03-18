@@ -60,6 +60,12 @@ export function renderMonthlySheet(el, selMonth, selYear) {
   });
 }
 
+// Custom short date formatter to save space
+function formatDayOnly(dateStr) {
+  if (!dateStr) return '—';
+  return dateStr.split('-')[2]; // Extract just the day part e.g., '01'
+}
+
 /* ---------- MLD Table ---------- */
 function renderMLDTable(rows, c138, c238) {
   return `
@@ -67,12 +73,8 @@ function renderMLDTable(rows, c138, c238) {
       <table class="data-table">
         <thead>
           <tr>
-            <th rowspan="3" style="min-width:36px">S.No</th>
-            <th rowspan="3" style="min-width:64px">Date</th>
-            <th colspan="${c138.length + c238.length}" class="gh">Water Meter Reading (MLD)</th>
-          </tr>
-          <tr>
-            <th colspan="${c138.length}" class="gh">CWSS-138</th>
+            <th rowspan="2" style="min-width:40px">Date</th>
+            <th colspan="${c138.length}" class="gh">CWSS-138 (MLD)</th>
             <th colspan="${c238.length}" class="gh2">CWSS-238</th>
           </tr>
           <tr>
@@ -82,11 +84,10 @@ function renderMLDTable(rows, c138, c238) {
         </thead>
         <tbody>
           ${rows.map(r => {
-            if (r.isTotal) return `<tr class="row-total"><td></td><td style="text-align:left;font-weight:800">Total</td>${[...c138,...c238].map(() => '<td></td>').join('')}</tr>`;
-            if (r.isAvg)   return `<tr class="row-avg"><td></td><td style="text-align:left;font-weight:700">Average</td>${[...c138,...c238].map(() => '<td></td>').join('')}</tr>`;
+            if (r.isTotal) return `<tr class="row-total"><td style="font-weight:800;text-align:center">Tot</td>${[...c138,...c238].map(() => '<td></td>').join('')}</tr>`;
+            if (r.isAvg)   return `<tr class="row-avg"><td style="font-weight:700;text-align:center">Avg</td>${[...c138,...c238].map(() => '<td></td>').join('')}</tr>`;
             return `<tr class="${r.isBase ? 'row-base' : ''}">
-              <td class="cs">${r.sno}</td>
-              <td class="cd">${fmtDateDisplay(r.date)}</td>
+              <td class="cd" style="text-align:center">${r.isBase ? 'Base' : formatDayOnly(r.date)}</td>
               ${[...c138,...c238].map(m => { const v = r.mld[m.id]; return `<td class="${v!=null?'cv':'ce'}">${v!=null ? fmtNum(v) : '—'}</td>`; }).join('')}
             </tr>`;
           }).join('')}
@@ -99,36 +100,31 @@ function renderMLDTable(rows, c138, c238) {
 function renderLitresTable(rows, c138, c238) {
   return `
     <div class="table-wrapper">
-      <table class="data-table">
+      <table class="data-table" style="min-width:100%">
         <thead>
           <tr>
-            <th rowspan="3" style="min-width:36px">S.No</th>
-            <th rowspan="3" style="min-width:64px">Date</th>
-            <th colspan="${c138.length + c238.length}" class="gh2">Water Meter Reading (Litres)</th>
-          </tr>
-          <tr>
-            <th colspan="${c138.length}" class="gh">CWSS-138</th>
+            <th rowspan="2" style="min-width:40px">Date</th>
+            <th colspan="${c138.length}" class="gh">CWSS-138 (Litres)</th>
             <th colspan="${c238.length}" class="gh2">CWSS-238</th>
           </tr>
           <tr>
-            ${c138.map(c => `<th>${c.name}</th>`).join('')}
-            ${c238.map(c => `<th>${c.name}</th>`).join('')}
+            ${c138.map(c => `<th>${c.name.replace('Main Ent','Main').replace('MGP C&EK','C&EK')}</th>`).join('')}
+            ${c238.map(c => `<th>${c.name.replace('Main Ent','Main')}</th>`).join('')}
           </tr>
         </thead>
         <tbody>
           ${rows.map(r => {
             if (r.isTotal) {
-              return `<tr class="row-total"><td></td><td style="text-align:left;font-weight:800">Total</td>${[...c138,...c238].map((c,i) => i===0?'':(`<td class="${r.litres[c.id]>0?'cv':''}">${fmtNum(r.litres[c.id])}</td>`)).join('')}</tr>`;
+              return `<tr class="row-total"><td style="font-weight:800;text-align:center">Tot</td>${[...c138,...c238].map(c => `<td class="${r.litres[c.id]>0?'cv':''}">${fmtNum(r.litres[c.id])}</td>`).join('')}</tr>`;
             }
             if (r.isAvg) {
-              return `<tr class="row-avg"><td></td><td style="text-align:left;font-weight:700">Average</td>${[...c138,...c238].map((c,i) => i===0?'':(`<td class="${r.litres[c.id]!=null?'cv':''}">${fmtNum(r.litres[c.id])}</td>`)).join('')}</tr>`;
+              return `<tr class="row-avg"><td style="font-weight:700;text-align:center">Avg</td>${[...c138,...c238].map(c => `<td class="${r.litres[c.id]!=null?'cv':''}">${fmtNum(r.litres[c.id])}</td>`).join('')}</tr>`;
             }
             if (r.isBase) {
-              return `<tr class="row-base"><td class="cs">${r.sno}</td><td class="cd">${fmtDateDisplay(r.date)}</td>${[...c138,...c238].map(() => '<td class="ce">—</td>').join('')}</tr>`;
+              return `<tr class="row-base"><td class="cd" style="text-align:center">Base</td>${[...c138,...c238].map(() => '<td class="ce">—</td>').join('')}</tr>`;
             }
             return `<tr>
-              <td class="cs">${r.sno}</td>
-              <td class="cd">${fmtDateDisplay(r.date)}</td>
+              <td class="cd" style="text-align:center">${formatDayOnly(r.date)}</td>
               ${[...c138,...c238].map(c => { const v = r.litres[c.id]; return `<td class="${v!=null?'cv':'ce'}">${v!=null ? fmtNum(v) : '—'}</td>`; }).join('')}
             </tr>`;
           }).join('')}

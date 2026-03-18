@@ -144,12 +144,12 @@ body{font-family:var(--font);background:var(--bg-base);color:var(--text-primary)
 
 /* --- Excel Table --- */
 .table-wrapper{overflow-x:auto;border-radius:var(--radius-md);border:1px solid var(--border);box-shadow:var(--shadow-sm);-webkit-overflow-scrolling:touch;margin-bottom:16px;position:relative}
-.data-table{width:100%;border-collapse:collapse;font-size:0.76rem;min-width:750px;white-space:nowrap}
+.data-table{width:100%;border-collapse:collapse;font-size:0.75rem;white-space:nowrap}
 .data-table thead{position:sticky;top:0;z-index:5}
-.data-table th{background:var(--bg-table-head);color:var(--text-secondary);font-weight:700;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.04em;padding:10px 10px;border-bottom:2px solid var(--border);text-align:center}
-.data-table th.gh{background:var(--accent);color:white;font-size:0.68rem}
-.data-table th.gh2{background:hsl(190,80%,42%);color:white;font-size:0.68rem}
-.data-table td{padding:7px 10px;border-bottom:1px solid var(--border-light);text-align:center;color:var(--text-primary);transition:background var(--transition-fast);font-variant-numeric:tabular-nums}
+.data-table th{background:var(--bg-table-head);color:var(--text-secondary);font-weight:700;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.02em;padding:8px 4px;border-bottom:2px solid var(--border);text-align:center}
+.data-table th.gh{background:var(--accent);color:white;font-size:0.64rem}
+.data-table th.gh2{background:hsl(190,80%,42%);color:white;font-size:0.64rem}
+.data-table td{padding:7px 4px;border-bottom:1px solid var(--border-light);text-align:center;color:var(--text-primary);transition:background var(--transition-fast);font-variant-numeric:tabular-nums}
 .data-table tbody tr:nth-child(even) td{background:var(--bg-table-alt)}
 .data-table tbody tr:hover td{background:var(--accent-glow) !important}
 .data-table tr.row-base td{background:var(--bg-table-head);font-style:italic;color:var(--text-muted)}
