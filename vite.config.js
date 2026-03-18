@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   // Set to your GitHub repo name for Pages deployment
-  // e.g. if repo is github.com/kumarkandhasamy/neernilai → base: '/neernilai/'
-  base: process.env.GITHUB_ACTIONS ? '/neernilai/' : '/',
+  // e.g. if repo is github.com/kumarkandhasamy/kudineer → base: '/kudineer/'
+  base: process.env.GITHUB_ACTIONS ? '/kudineer/' : '/',
   server: {
     port: 3000,
     open: true,

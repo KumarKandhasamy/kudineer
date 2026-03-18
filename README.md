@@ -1,4 +1,4 @@
-# 💧 NeerNilai – Water Meter Reading Tracker
+# 💧 Kudineer – Water Meter Reading Tracker
 
 A **premium mobile-first PWA** for tracking water meter readings and calculating consumption for **Punjai Thalavaipalayam CWSS 138/238**.
 
