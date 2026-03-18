@@ -1,6 +1,6 @@
 @echo off
 echo =============================================
-echo  JalMitra - GitHub Setup Script
+echo  NeerNilai - GitHub Setup Script
 echo =============================================
 echo.
 
@@ -11,7 +11,7 @@ git config user.name "Kumar Kandhasamy"
 
 REM Step 2: Stage and commit all files
 git add .
-git commit -m "feat: initial JalMitra v2 PWA with Vite, MLD/Litres toggle, CI/CD"
+git commit -m "feat: initial NeerNilai v2 PWA with Vite, MLD/Litres toggle, CI/CD"
 
 REM Step 3: Set branch to main
 git branch -M main
@@ -20,9 +20,9 @@ echo.
 echo =============================================
 echo  DONE! Now run the following command:
 echo.
-echo  git remote add origin https://github.com/kumarkandhasamy/jalmitra.git
+echo  git remote add origin https://github.com/kumarkandhasamy/neernilai.git
 echo  git push -u origin main
 echo.
-echo  (Replace 'jalmitra' with your actual repo name)
+echo  (Replace 'neernilai' with your actual repo name)
 echo =============================================
 pause

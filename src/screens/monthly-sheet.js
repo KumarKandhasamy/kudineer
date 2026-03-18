@@ -43,8 +43,6 @@ export function renderMonthlySheet(el, selMonth, selYear) {
     </div>
 
     ${isMLD ? renderMLDTable(rows, c138m, c238m) : renderLitresTable(rows, c138l, c238l)}
-
-    <p style="font-size:.68rem;color:var(--text-muted);text-align:center;margin-top:6px">← Scroll horizontally for all meters →</p>
   `;
 
   // Month / Year change

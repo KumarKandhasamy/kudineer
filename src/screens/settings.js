@@ -14,13 +14,13 @@ export function renderSettings(el, cbs) {
       <div class="settings-item" id="sClear" style="border-color:rgba(239,68,68,0.2)"><div class="settings-item-left"><span class="settings-icon">🗑️</span><div><div class="settings-label" style="color:var(--danger)">Clear All Data</div><div class="settings-desc">Permanently remove all readings</div></div></div><span class="settings-value" style="color:var(--danger)">Clear →</span></div>
     </div>
     <div class="card" style="margin-top:18px;text-align:center">
-      <p style="font-size:.95rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent">💧 JalMitra</p>
+      <p style="font-size:.95rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent">💧 NeerNilai</p>
       <p style="font-size:.68rem;color:var(--text-muted);margin-top:3px">Water Meter Tracker v2.0 • CWSS 138/238</p>
     </div>`;
 
   el.querySelector('#tSwitch').onclick = e => { e.currentTarget.classList.toggle('active'); const t = e.currentTarget.classList.contains('active')?'dark':'light'; s.theme=t; saveSettings(s); cbs?.onThemeChange?.(t); };
   el.querySelector('#sPin').onclick = () => { const p = prompt('New 4-digit PIN:', s.pin); if(p?.length===4&&/^\d+$/.test(p)){s.pin=p;saveSettings(s);showToast('🔐 PIN updated');renderSettings(el,cbs);}else if(p) showToast('⚠️ Must be 4 digits'); };
   el.querySelector('#sSeed').onclick = () => { seedSampleData(); showToast('📥 Sample data loaded!'); cbs?.onRefresh?.(); };
-  el.querySelector('#sExport').onclick = () => { const b=new Blob([exportCSV()],{type:'text/csv'}), u=URL.createObjectURL(b), a=document.createElement('a'); a.href=u; a.download='jalmitra.csv'; a.click(); URL.revokeObjectURL(u); showToast('📤 Exported'); };
+  el.querySelector('#sExport').onclick = () => { const b=new Blob([exportCSV()],{type:'text/csv'}), u=URL.createObjectURL(b), a=document.createElement('a'); a.href=u; a.download='neernilai_readings.csv'; a.click(); URL.revokeObjectURL(u); showToast('📤 Exported'); };
   el.querySelector('#sClear').onclick = () => { if(confirm('⚠️ Delete ALL data?')){clearAllData();showToast('🗑️ Cleared');cbs?.onRefresh?.();} };
 }
